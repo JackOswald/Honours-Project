@@ -11,16 +11,29 @@ public class PlayerScript : MonoBehaviour {
 	int reserveAmmo;
 	const int gunCapacity = 30;
 
+	public float fireRate = 0.5f;
+	public float lastShot = 0;
+
 	public Text currentAmmoText;
 
 	public bool isShooting = false;
+	public bool shootingLocked = false;
 
+	public AudioClip gunFireSound;
+	public AudioClip gunEmptySound;
+	public AudioClip gunReloadSound;
+	AudioSource audioSource;
+
+	public GameObject gunGameObject;
 
 	// Use this for initialization
 	void Start () 
 	{	
 		currentAmmo = gunCapacity;	
 		reserveAmmo = 300;
+		shootingLocked = false;
+
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	// Update is called once per frame
@@ -28,14 +41,33 @@ public class PlayerScript : MonoBehaviour {
 	{
 		currentAmmoText.text = currentAmmo.ToString() + " | " + reserveAmmo;
 
-		if (Input.GetButton ("Fire1") && currentAmmo >0) 
+		if (Input.GetButton ("Fire1") && shootingLocked == false) 
 		{
-			isShooting = true;	
-			//Debug.Log ("Firing");
+			if (currentAmmo > 0) 
+			{
+				if (Time.time > fireRate + lastShot)
+				{
+					isShooting = true;	
+					lastShot = Time.time;
+				}
+			} 
+			else 
+			{
+				audioSource.PlayOneShot (gunEmptySound);	
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.R)) 
 		{
+			if (currentAmmo != gunCapacity && reserveAmmo >= 1) 
+			{
+				audioSource.PlayOneShot (gunReloadSound);
+				gunGameObject.transform.localEulerAngles = new Vector3 (25.0f, 6.19f, 0.0f);
+				gunGameObject.transform.localPosition = new Vector3 (0.84f, -1.14f, 0.8909998f);
+				shootingLocked = true;
+				StartCoroutine (ReloadGun ());
+
+			}
 			int bulletRefill = gunCapacity - currentAmmo;
 
 			if (reserveAmmo > bulletRefill) 
@@ -50,13 +82,24 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 
-		CheckAmmo ();
+		if (Input.GetKey (KeyCode.LeftShift)) 
+		{
+			gunGameObject.transform.localEulerAngles = new Vector3 (40.0f, -35.0f, 0.0f);
+			shootingLocked = true;
+		}
+
+		if (Input.GetKeyUp (KeyCode.LeftShift)) 
+		{
+			gunGameObject.transform.localEulerAngles = new Vector3 (0.0f, 6.19f, 0.0f);
+			shootingLocked = false;
+		}
 	}
 
 	void FixedUpdate()
 	{
 		if (isShooting) 
 		{
+			audioSource.PlayOneShot (gunFireSound, 0.5f);
 			isShooting = false;
 
 			currentAmmo--;
@@ -67,20 +110,19 @@ public class PlayerScript : MonoBehaviour {
 			{
 				if (hit.collider.gameObject.tag == "Enemy") 
 				{
-					Debug.Log ("Hit an enemy");
-					Destroy (hit.collider.gameObject);
+					Destroy (hit.collider.transform.parent.gameObject);
 				}
 			}
 
 		}
 	}
-
-	void CheckAmmo()
+		
+	IEnumerator ReloadGun()
 	{
-		if (currentAmmo < 0) 
-		{
-			currentAmmo = 0;
-		}
+		yield return new WaitForSeconds (gunReloadSound.length);
+		gunGameObject.transform.localEulerAngles = new Vector3 (0.0f, 6.19f, 0.0f);
+		gunGameObject.transform.localPosition = new Vector3 (0.84f, -0.92f, 0.8909998f);
+		shootingLocked = false;
 	}
 
 }
