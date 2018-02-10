@@ -113,14 +113,13 @@ public class PlayerScript : MonoBehaviour {
 			RaycastHit hit = new RaycastHit ();
 			if (Physics.Raycast (ray, out hit))
 			{
-				if (hit.collider.gameObject.tag == "Enemy") 
-				{
+				if (hit.collider.gameObject.tag == "Enemy") {
 					//Destroy (hit.collider.transform.parent.gameObject);
 					//Debug.Log(hit.transform.gameObject.name);
 					enemyScript = hit.collider.transform.parent.gameObject;
 					enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
 					enemyHealthScript.TakeDamage (gunDamage);
-				}
+				} 
 			}
 		}
 	}

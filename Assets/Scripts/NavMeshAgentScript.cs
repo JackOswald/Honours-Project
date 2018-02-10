@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class NavMeshAgentScript : MonoBehaviour {
+
 
 	public Transform[] targets;
 	public int destPoint = 0;
@@ -13,8 +15,10 @@ public class NavMeshAgentScript : MonoBehaviour {
 	void Start () 
 	{
 		agent = GetComponent <NavMeshAgent> ();
-		agent.autoBraking = false;
+		agent.autoBraking = true;
+		agent.autoRepath = true;
 		MoveToNextPoint ();
+		agent.avoidancePriority = Random.Range (0, 99);
 
 	}
 	
@@ -22,6 +26,7 @@ public class NavMeshAgentScript : MonoBehaviour {
 	void Update () 
 	{
 		//agent.SetDestination (target.position);	
+		// && agent.remainingDistance < 0.5f
 		if (!agent.pathPending && agent.remainingDistance < 0.5f)
 		{
 			MoveToNextPoint ();
