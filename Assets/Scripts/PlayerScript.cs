@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour {
 
 	public int score;
+	public int gunDamage;
 
 	int currentAmmo;
 	int reserveAmmo;
@@ -26,6 +27,9 @@ public class PlayerScript : MonoBehaviour {
 
 	public GameObject gunGameObject;
 
+	public GameObject enemyScript;
+	public EnemyHealthScript enemyHealthScript;
+
 	// Use this for initialization
 	void Start () 
 	{	
@@ -34,6 +38,7 @@ public class PlayerScript : MonoBehaviour {
 		shootingLocked = false;
 
 		audioSource = GetComponent<AudioSource> ();
+
 	}
 
 	// Update is called once per frame
@@ -110,10 +115,13 @@ public class PlayerScript : MonoBehaviour {
 			{
 				if (hit.collider.gameObject.tag == "Enemy") 
 				{
-					Destroy (hit.collider.transform.parent.gameObject);
+					//Destroy (hit.collider.transform.parent.gameObject);
+					//Debug.Log(hit.transform.gameObject.name);
+					enemyScript = hit.collider.transform.parent.gameObject;
+					enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
+					enemyHealthScript.TakeDamage (gunDamage);
 				}
 			}
-
 		}
 	}
 		

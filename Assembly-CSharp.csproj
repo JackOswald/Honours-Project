@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\EnemyHealthScript.cs" />
      <Compile Include="Assets\Scripts\NavMeshAgentScript.cs" />
      <Compile Include="Assets\Scripts\PlayerScript.cs" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
