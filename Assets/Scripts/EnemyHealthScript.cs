@@ -11,6 +11,10 @@ public class EnemyHealthScript : MonoBehaviour {
 	public Image visualHealth;
 	public float healthBarSpeed = 3;
 
+	public GameObject playerCamera;
+
+	//public GameObject camera;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -22,10 +26,11 @@ public class EnemyHealthScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		playerCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera> ().gameObject;
 		CheckHealth ();
 		UpdateHealth ();
 
-		transform.LookAt (Camera.main.transform);
+		transform.LookAt (playerCamera.transform);
 	}
 
 	public void UpdateHealth()

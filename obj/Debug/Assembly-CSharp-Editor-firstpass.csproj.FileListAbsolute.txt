@@ -53,3 +53,5 @@ E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Ass
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.WebGL.Extensions.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Editor.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Runtime.dll

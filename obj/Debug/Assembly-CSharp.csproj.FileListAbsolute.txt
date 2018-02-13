@@ -30,3 +30,7 @@ E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debu
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEngine.VR.xml
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp.pdb
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Editor.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Runtime.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.UI.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.UI.xml

@@ -1,11 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ServerUtilityScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\NetworkFPCScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerScript.cs" Line="32" Column="2" />
+      <File FileName="Assets\Scripts\NetworkLevelLoader.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ServerUtilityScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\NetworkManagerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\NetworkFPCScript.cs" Line="18" Column="19" />
       <File FileName="Assets\Scripts\EnemyHealthScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NavMeshAgentScript.cs" Line="21" Column="50" />
-      <File FileName="Assets\Scripts\ServerUtilityScript.cs" Line="10" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
