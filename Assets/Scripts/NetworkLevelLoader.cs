@@ -27,6 +27,7 @@ public class NetworkLevelLoader : MonoBehaviour
 		StopAllCoroutines();
 		StartCoroutine( doLoadLevel( levelName, prefix ) );
 	}
+
 	// Do the work of pausing the network queue, loading the level, waiting, and then unpausing
 	IEnumerator doLoadLevel( string name, int prefix )
 	{

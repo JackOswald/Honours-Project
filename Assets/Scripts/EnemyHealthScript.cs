@@ -26,7 +26,9 @@ public class EnemyHealthScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		
 		playerCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera> ().gameObject;
+	
 		CheckHealth ();
 		UpdateHealth ();
 

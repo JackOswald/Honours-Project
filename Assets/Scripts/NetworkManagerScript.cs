@@ -8,27 +8,29 @@ public class NetworkManagerScript : MonoBehaviour {
 	public Text networkText;
 	public GameObject serverCamera;
 	public GameObject playerPrefab;
+	public GameObject enemyPrefab;
 
 	// Use this for initialization
 	void Start () 
 	{
-		//if (!Network.isServer) 
-		//{
-			//networkText.GetComponent<Text> ().text = "Client";
-			//serverCamera.SetActive (false);
-		//}
+		if (!Network.isServer) 
+		{
+			networkText.GetComponent<Text> ().text = "Client";
+			serverCamera.SetActive (false);
+		}
 		if (Network.isServer) 
 		{
 			networkText.GetComponent<Text> ().text = "Server";
 			serverCamera.SetActive (true);
+			Network.Instantiate (enemyPrefab, new Vector3 (10.0f, 0.5f, -20.0f), Quaternion.identity, 0);
 		}
-		else
+		/*else
 		{
 			networkText.GetComponent<Text> ().text = "Client";
 			serverCamera.SetActive (false);
-			//Network.Instantiate (playerPrefab, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity, 0);
+			Network.Instantiate (playerPrefab, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity, 0);
 
-		}
+		}*/
 	}
 
 	void OnConnectedToServer()
@@ -37,9 +39,18 @@ public class NetworkManagerScript : MonoBehaviour {
 		//serverCamera.SetActive (false);
 		Network.Instantiate (playerPrefab, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity, 0);
 	}
+
+	void OnServerInitialized()
+	{
+		Debug.Log ("Server Part 2");
+	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if (Network.isClient)
+		{
+			Debug.Log ("Client update method");
+		}
 	}
 }

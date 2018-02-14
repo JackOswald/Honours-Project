@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq;
 
 public class NavMeshAgentScript : MonoBehaviour {
 
@@ -19,6 +18,17 @@ public class NavMeshAgentScript : MonoBehaviour {
 		agent.autoRepath = true;
 		MoveToNextPoint ();
 		agent.avoidancePriority = Random.Range (0, 99);
+
+		//targets = gameObject.GetComponentsInChildren<Transform> ();
+		//target = new GameObject[targets.Length];
+
+		//foreach (Transform t in targets)
+		//{
+		//	value++;
+		//	target.SetValue (t.gameObject, value - 1);
+		//}
+
+		targets = GameObject.FindGameObjectWithTag ("NavMesh Objects").GetComponentsInChildren<Transform> ();
 
 	}
 	
@@ -40,7 +50,7 @@ public class NavMeshAgentScript : MonoBehaviour {
 			return;
 		}
 
-		agent.destination = targets [destPoint].position;
+		agent.destination = targets [destPoint].transform.position;
 
 		//destPoint = (destPoint + 1) % targets.Length;
 		destPoint = Random.Range(0, targets.Length);

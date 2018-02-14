@@ -83,6 +83,7 @@
      <Compile Include="Assets\Scripts\NetworkFPCScript.cs" />
      <Compile Include="Assets\Scripts\NetworkLevelLoader.cs" />
      <Compile Include="Assets\Scripts\NetworkManagerScript.cs" />
+     <Compile Include="Assets\Scripts\NetworkServerScript.cs" />
      <Compile Include="Assets\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\ServerUtilityScript.cs" />
      <None Include="Assets\External Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
