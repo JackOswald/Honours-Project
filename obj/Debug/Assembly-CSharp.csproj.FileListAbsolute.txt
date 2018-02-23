@@ -32,5 +32,3 @@ E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debu
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp.pdb
-E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.UI.dll
-E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.UI.xml

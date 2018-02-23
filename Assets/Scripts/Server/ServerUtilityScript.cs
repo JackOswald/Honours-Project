@@ -11,7 +11,7 @@ public class ServerUtilityScript : MonoBehaviour {
 
 	HostData[] hostList;
 
-	public string ipAddress = "192.168.0.14"; //192.168.0.14
+	public string ipAddress = ""; //192.168.0.14
 
 	public InputField ipInputField;
 
@@ -24,7 +24,7 @@ public class ServerUtilityScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		//ipAddress = ipInputField.GetComponent<InputField>().text;
+		ipAddress = ipInputField.GetComponent<InputField>().text;
 	}
 
 	public void StartServer()
