@@ -1,6 +1,8 @@
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Assembly-CSharp-Editor-firstpass.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Assembly-CSharp-Editor-firstpass.pdb
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\nunit.framework.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Editor.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Runtime.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.Advertisements.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.Analytics.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.dll
@@ -12,6 +14,7 @@ E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debu
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.TreeEditor.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.UI.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.VR.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.WebGL.Extensions.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.WindowsStandalone.Extensions.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEngine.Analytics.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEngine.dll
@@ -29,6 +32,7 @@ E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debu
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Mono.Cecil.Mdb.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Unity.CecilTools.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEngine.xml
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.xml
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.Advertisements.xml
@@ -51,7 +55,3 @@ E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debu
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp-Editor-firstpass.csprojResolveAssemblyReference.cache
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp-Editor-firstpass.dll
 E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
-E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
-E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\UnityEditor.WebGL.Extensions.dll
-E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Editor.dll
-E:\Jack\Documents\Uni Work\4th Year\Honours Project\HonoursProject\Temp\bin\Debug\TextMeshPro-5.6-1.0.56-Runtime.dll

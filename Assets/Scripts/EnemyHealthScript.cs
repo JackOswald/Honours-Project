@@ -27,12 +27,12 @@ public class EnemyHealthScript : MonoBehaviour {
 	void Update () 
 	{
 		
-		playerCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera> ().gameObject;
+		//playerCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera> ().gameObject;
 	
 		CheckHealth ();
 		UpdateHealth ();
 
-		transform.LookAt (playerCamera.transform);
+		//transform.LookAt (playerCamera.transform);
 	}
 
 	public void UpdateHealth()

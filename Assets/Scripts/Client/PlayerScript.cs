@@ -36,8 +36,6 @@ public class PlayerScript : MonoBehaviour {
 		//public bool moveXPos;
 		//public bool moveYPos;
 		//public bool moveZPos;
-
-
 	}
 
 	// Use this for initialization
@@ -114,27 +112,32 @@ public class PlayerScript : MonoBehaviour {
 	{
 		if (isShooting) 
 		{
-			audioSource.PlayOneShot (gunFireSound, 0.5f);
-			isShooting = false;
-
-			currentAmmo--;
-
-			Ray ray = Camera.main.ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
-			RaycastHit hit = new RaycastHit ();
-			if (Physics.Raycast (ray, out hit))
-			{
-				if (hit.collider.gameObject.tag == "Enemy") 
-				{
-					//Destroy (hit.collider.transform.parent.gameObject);
-					//Debug.Log(hit.transform.gameObject.name);
-					enemyScript = hit.collider.transform.parent.gameObject;
-					enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
-					enemyHealthScript.TakeDamage (gunDamage);
-				} 
-			}
+			Fire ();
 		}
 	}
-		
+
+	void Fire()
+	{
+		audioSource.PlayOneShot (gunFireSound, 0.5f);
+		isShooting = false;
+
+		currentAmmo--;
+
+		Ray ray = Camera.main.ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
+		RaycastHit hit = new RaycastHit ();
+		if (Physics.Raycast (ray, out hit))
+		{
+			if (hit.collider.gameObject.tag == "Enemy") 
+			{
+				//Destroy (hit.collider.transform.parent.gameObject);
+				//Debug.Log(hit.transform.gameObject.name);
+				enemyScript = hit.collider.transform.parent.gameObject;
+				enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
+				enemyHealthScript.TakeDamage (gunDamage);
+			} 
+		}
+	}
+
 	IEnumerator ReloadGun()
 	{
 		yield return new WaitForSeconds (gunReloadSound.length);

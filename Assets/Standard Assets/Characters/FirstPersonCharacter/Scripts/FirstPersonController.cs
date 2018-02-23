@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -32,7 +33,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jump;
         private float m_YRotation;
         private Vector2 m_Input;
-        private Vector3 m_MoveDir = Vector3.zero;
+        public Vector3 m_MoveDir = Vector3.zero;
         private CharacterController m_CharacterController;
         private CollisionFlags m_CollisionFlags;
         private bool m_PreviouslyGrounded;
@@ -41,6 +42,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+
+
+		public float horizontal;
+		public float vertical;
+		public Vector3 currentPos;
 
         // Use this for initialization
         private void Start()
@@ -93,24 +99,31 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void FixedUpdate()
+		public void FixedUpdate()
         {
-            float speed;
-            GetInput(out speed);
-            // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+			//Simulate ();	
+        }
 
-            // get a normal for the surface that is being touched to move along it
-            RaycastHit hitInfo;
-            Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                               m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-            desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+		public void Simulate()
+		{
+			float speed;
+			GetInput(out speed);
 
-            m_MoveDir.x = desiredMove.x*speed;
-            m_MoveDir.z = desiredMove.z*speed;
+			currentPos = new Vector3 (this.transform.position.x, this.transform.position.y, this.transform.position.z);
+			// always move along the camera forward as it is the direction that it being aimed at
+			Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+
+			// get a normal for the surface that is being touched to move along it
+			RaycastHit hitInfo;
+			Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+				m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+			desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+
+			m_MoveDir.x = desiredMove.x*speed;
+			m_MoveDir.z = desiredMove.z*speed;
 
 
-            if (m_CharacterController.isGrounded)
+			if (m_CharacterController.isGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
@@ -126,15 +139,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
+
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
-            ProgressStepCycle(speed);
-            UpdateCameraPosition(speed);
+			ProgressStepCycle(speed);
+			UpdateCameraPosition(speed);
 
-            m_MouseLook.UpdateCursorLock();
-        }
+			m_MouseLook.UpdateCursorLock();
 
-
+		}
+			
         private void PlayJumpSound()
         {
             //m_AudioSource.clip = m_JumpSound;
@@ -207,8 +221,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void GetInput(out float speed)
         {
             // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+			horizontal = Input.GetAxis("Horizontal");
+			vertical = Input.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
 
