@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#pragma warning disable 618
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,9 +57,15 @@ public class EnemyHealthScript : MonoBehaviour {
 		}
 	}
 
-	public void TakeDamage(int amount)
+	public void DamageRPCCall()
 	{
-		currentHealth -= amount;
+		GetComponent<NetworkView> ().RPC ("TakeDamage", RPCMode.All);
+	}
+
+	[RPC]
+	public void TakeDamage()
+	{
+		currentHealth -= 10;
 	}
 
 	public void CheckHealth()

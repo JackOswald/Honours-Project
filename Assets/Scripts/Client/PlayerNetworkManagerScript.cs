@@ -134,7 +134,7 @@ public class PlayerNetworkManagerScript : MonoBehaviour {
 		moveHistory.Clear ();
 	}
 
-	/*void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
+	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{
 		Vector3 position = Vector3.zero;
 
@@ -150,5 +150,5 @@ public class PlayerNetworkManagerScript : MonoBehaviour {
 			stream.Serialize (ref position);
 			transform.position = position;
 		}
-	}*/
+	}
 }

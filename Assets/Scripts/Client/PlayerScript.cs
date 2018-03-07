@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable 618
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,20 +25,14 @@ public class PlayerScript : MonoBehaviour {
 	public AudioClip gunFireSound;
 	public AudioClip gunEmptySound;
 	public AudioClip gunReloadSound;
-	AudioSource audioSource;
+	public AudioSource audioSource;
 
 	public GameObject gunGameObject;
 
 	public GameObject enemyScript;
 	public EnemyHealthScript enemyHealthScript;
 
-	// Represents commnads to send to the server
-	private struct move
-	{
-		//public bool moveXPos;
-		//public bool moveYPos;
-		//public bool moveZPos;
-	}
+	public Camera playerCanmera;
 
 	// Use this for initialization
 	void Start () 
@@ -52,6 +48,8 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		Debug.DrawRay (transform.position, transform.forward, Color.green);
+
 		currentAmmoText.text = currentAmmo.ToString() + " | " + reserveAmmo;
 
 		if (Input.GetButton ("Fire1") && shootingLocked == false) 
@@ -60,7 +58,7 @@ public class PlayerScript : MonoBehaviour {
 			{
 				if (Time.time > fireRate + lastShot)
 				{
-					isShooting = true;	
+					Fire ();
 					lastShot = Time.time;
 				}
 			} 
@@ -108,34 +106,46 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate()
+	/*void FixedUpdate()
 	{
 		if (isShooting) 
 		{
-			Fire ();
+			if (Network.isServer) 
+			{
+				Debug.Log ("Fire");
+				Fire ();
+			} 
+			else 
+			{
+				Debug.Log ("RPC FIRE");
+				GetComponent<NetworkView> ().RPC ("Fire", RPCMode.Server);
+			}
 		}
-	}
+	}*/
 
 	void Fire()
 	{
+		Debug.Log ("Client fire");
+
+		//currentAmmo--;
+
+		GetComponent<NetworkView> ().RPC ("ServerFire", RPCMode.Server);
+
 		audioSource.PlayOneShot (gunFireSound, 0.5f);
-		isShooting = false;
 
-		currentAmmo--;
-
-		Ray ray = Camera.main.ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
-		RaycastHit hit = new RaycastHit ();
-		if (Physics.Raycast (ray, out hit))
+		//Ray ray = Camera.main.ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
+		/*RaycastHit hit = new RaycastHit ();
+		if (Physics.Raycast (playerCanmera.transform.position, playerCanmera.transform.forward, out hit))
 		{
 			if (hit.collider.gameObject.tag == "Enemy") 
 			{
 				//Destroy (hit.collider.transform.parent.gameObject);
-				//Debug.Log(hit.transform.gameObject.name);
+				Debug.Log(hit.transform.gameObject.name);
 				enemyScript = hit.collider.transform.parent.gameObject;
 				enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
 				enemyHealthScript.TakeDamage (gunDamage);
 			} 
-		}
+		}*/
 	}
 
 	IEnumerator ReloadGun()
@@ -144,6 +154,32 @@ public class PlayerScript : MonoBehaviour {
 		gunGameObject.transform.localEulerAngles = new Vector3 (0.0f, 6.19f, 0.0f);
 		gunGameObject.transform.localPosition = new Vector3 (0.84f, -0.92f, 0.8909998f);
 		shootingLocked = false;
+	}
+
+	[RPC]
+	void ServerFire()
+	{
+		isShooting = false;
+		GetComponent<NetworkView>().RPC("UpdateAmmo", RPCMode.Server);
+		Debug.Log ("Server Fire");
+		RaycastHit hit = new RaycastHit ();
+		if (Physics.Raycast (playerCanmera.transform.position, playerCanmera.transform.forward, out hit))
+		{
+			if (hit.collider.gameObject.tag == "Enemy") 
+			{
+				//Destroy (hit.collider.transform.parent.gameObject);
+				Debug.Log(hit.transform.gameObject.name);
+				enemyScript = hit.collider.transform.parent.gameObject;
+				enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
+				enemyHealthScript.DamageRPCCall ();
+			} 
+		}
+	}
+
+	[RPC]
+	void UpdateAmmo()
+	{
+		currentAmmo--;
 	}
 
 }
