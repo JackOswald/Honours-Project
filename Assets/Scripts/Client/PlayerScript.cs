@@ -10,8 +10,8 @@ public class PlayerScript : MonoBehaviour {
 	public int score;
 	public int gunDamage;
 
-	int currentAmmo;
-	int reserveAmmo;
+	public int currentAmmo;
+	public int reserveAmmo;
 	const int gunCapacity = 30;
 
 	public float fireRate = 0.5f;
@@ -34,22 +34,22 @@ public class PlayerScript : MonoBehaviour {
 
 	public Camera playerCanmera;
 
-	// Use this for initialization
-	void Start () 
-	{	
+	void Awake()
+	{
 		currentAmmo = gunCapacity;	
 		reserveAmmo = 300;
 		shootingLocked = false;
+	}
 
+	// Use this for initialization
+	void Start () 
+	{	
 		audioSource = GetComponent<AudioSource> ();
-
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		Debug.DrawRay (transform.position, transform.forward, Color.green);
-
 		currentAmmoText.text = currentAmmo.ToString() + " | " + reserveAmmo;
 
 		if (Input.GetButton ("Fire1") && shootingLocked == false) 
@@ -77,20 +77,9 @@ public class PlayerScript : MonoBehaviour {
 				gunGameObject.transform.localPosition = new Vector3 (0.84f, -1.14f, 0.8909998f);
 				shootingLocked = true;
 				StartCoroutine (ReloadGun ());
-
 			}
-			int bulletRefill = gunCapacity - currentAmmo;
 
-			if (reserveAmmo > bulletRefill) 
-			{
-				currentAmmo = gunCapacity;
-				reserveAmmo -= bulletRefill;
-			} 
-			else 
-			{
-				currentAmmo += reserveAmmo;
-				reserveAmmo = 0;
-			}
+			GetComponent<NetworkView> ().RPC ("ReloadWeapon", RPCMode.Server);
 		}
 
 		if (Input.GetKey (KeyCode.LeftShift)) 
@@ -106,46 +95,15 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
-	/*void FixedUpdate()
-	{
-		if (isShooting) 
-		{
-			if (Network.isServer) 
-			{
-				Debug.Log ("Fire");
-				Fire ();
-			} 
-			else 
-			{
-				Debug.Log ("RPC FIRE");
-				GetComponent<NetworkView> ().RPC ("Fire", RPCMode.Server);
-			}
-		}
-	}*/
-
 	void Fire()
 	{
 		Debug.Log ("Client fire");
 
-		//currentAmmo--;
-
 		GetComponent<NetworkView> ().RPC ("ServerFire", RPCMode.Server);
 
-		audioSource.PlayOneShot (gunFireSound, 0.5f);
+		audioSource.PlayOneShot (gunFireSound, 0.15f);
 
 		//Ray ray = Camera.main.ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
-		/*RaycastHit hit = new RaycastHit ();
-		if (Physics.Raycast (playerCanmera.transform.position, playerCanmera.transform.forward, out hit))
-		{
-			if (hit.collider.gameObject.tag == "Enemy") 
-			{
-				//Destroy (hit.collider.transform.parent.gameObject);
-				Debug.Log(hit.transform.gameObject.name);
-				enemyScript = hit.collider.transform.parent.gameObject;
-				enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
-				enemyHealthScript.TakeDamage (gunDamage);
-			} 
-		}*/
 	}
 
 	IEnumerator ReloadGun()
@@ -159,16 +117,19 @@ public class PlayerScript : MonoBehaviour {
 	[RPC]
 	void ServerFire()
 	{
+		if (!Network.isServer) 
+		{
+			return;
+		}
 		isShooting = false;
-		GetComponent<NetworkView>().RPC("UpdateAmmo", RPCMode.Server);
-		Debug.Log ("Server Fire");
+		GetComponent<NetworkView>().RPC("UpdateAmmo", RPCMode.All);
 		RaycastHit hit = new RaycastHit ();
 		if (Physics.Raycast (playerCanmera.transform.position, playerCanmera.transform.forward, out hit))
 		{
 			if (hit.collider.gameObject.tag == "Enemy") 
 			{
 				//Destroy (hit.collider.transform.parent.gameObject);
-				Debug.Log(hit.transform.gameObject.name);
+				//Debug.Log(hit.transform.gameObject.name);
 				enemyScript = hit.collider.transform.parent.gameObject;
 				enemyHealthScript = enemyScript.GetComponentInChildren<EnemyHealthScript> ();
 				enemyHealthScript.DamageRPCCall ();
@@ -180,6 +141,45 @@ public class PlayerScript : MonoBehaviour {
 	void UpdateAmmo()
 	{
 		currentAmmo--;
+	}
+
+	[RPC]
+	void ReloadWeapon()
+	{
+		if (!Network.isServer) 
+		{
+			return;
+		}
+			
+		int bulletRefill = gunCapacity - currentAmmo;
+
+		if (reserveAmmo > bulletRefill) 
+		{
+			GetComponent<NetworkView> ().RPC ("UpdateAmmo1", RPCMode.All, bulletRefill);
+			//currentAmmo = gunCapacity;
+			//reserveAmmo -= bulletRefill;
+		} 
+		else 
+		{
+			GetComponent<NetworkView> ().RPC ("UpdateAmmo2", RPCMode.All);
+			//currentAmmo += reserveAmmo;
+			//reserveAmmo = 0;
+		}
+
+	}
+
+	[RPC]
+	void UpdateAmmo1(int bRefil)
+	{
+		currentAmmo = gunCapacity;
+		reserveAmmo -= bRefil;
+	}
+
+	[RPC]
+	void UpdateAmmo2()
+	{
+		currentAmmo += reserveAmmo;
+		reserveAmmo = 0;
 	}
 
 }

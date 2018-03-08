@@ -14,6 +14,10 @@ public class EnemyHealthScript : MonoBehaviour {
 
 	public GameObject playerCamera;
 
+	public AudioClip gunHitEnemySound;
+	public AudioSource audioSource;
+
+
 	//public GameObject camera;
 
 	// Use this for initialization
@@ -21,6 +25,7 @@ public class EnemyHealthScript : MonoBehaviour {
 	{
 		maxHealth = 100;
 		currentHealth = maxHealth;
+		audioSource = GetComponent<AudioSource> ();
 		
 	}
 	
@@ -33,7 +38,7 @@ public class EnemyHealthScript : MonoBehaviour {
 		CheckHealth ();
 		UpdateHealth ();
 
-		//transform.LookAt (playerCamera.transform);
+		transform.LookAt (playerCamera.transform);
 	}
 
 	public void UpdateHealth()
@@ -59,7 +64,9 @@ public class EnemyHealthScript : MonoBehaviour {
 
 	public void DamageRPCCall()
 	{
+		audioSource.PlayOneShot (gunHitEnemySound, 0.2f);
 		GetComponent<NetworkView> ().RPC ("TakeDamage", RPCMode.All);
+
 	}
 
 	[RPC]

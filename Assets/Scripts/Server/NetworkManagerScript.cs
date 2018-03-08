@@ -31,8 +31,6 @@ public class NetworkManagerScript : MonoBehaviour {
 			{
 				float xPos = UnityEngine.Random.Range (0.0f, 100.0f);
 				float zPos = UnityEngine.Random.Range (-10.0f, 50.0f);
-				Debug.Log (xPos);
-				Debug.Log (zPos);
 				Network.Instantiate (enemyPrefab, new Vector3 (xPos, 0.5f, zPos), Quaternion.identity, 0);  //new Vector3 (10.0f, 0.5f, -20.0f)
 			}
 		}
@@ -41,7 +39,7 @@ public class NetworkManagerScript : MonoBehaviour {
 	void OnConnectedToServer()
 	{
 		//Network.Instantiate (playerPrefab, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity, 0);
-		SpawnPlayer(Network.player);
+		SpawnPlayer(Network.player, true);
 	}
 
 	void OnServerInitialized()
@@ -55,17 +53,20 @@ public class NetworkManagerScript : MonoBehaviour {
 		
 	}
 
-	void SpawnPlayer(NetworkPlayer player)
+	void SpawnPlayer(NetworkPlayer player, bool isPlayer)
 	{
 		string tempPlayerString = player.ToString ();
 		int playerNumber = Convert.ToInt32 (tempPlayerString);
-		Transform myTransform =  (Transform)Network.Instantiate (playerPrefab, 
-																new Vector3 (0.0f, 1.5f, 0.0f), 
-																Quaternion.identity, 
-																playerNumber);
-		playerScripts.Add (myTransform.GetComponent ("PlayerNetworkTestScript"));
-		NetworkView theNetworkView = myTransform.GetComponent<NetworkView>();
-		theNetworkView.RPC ("SetPlayer", RPCMode.AllBuffered, player);
-	
+
+		if (isPlayer) 
+		{
+			Transform myTransform = (Transform)Network.Instantiate (playerPrefab, 
+				                       new Vector3 (0.0f, 1.5f, 0.0f), 
+				                       Quaternion.identity, 
+				                       playerNumber);
+			playerScripts.Add (myTransform.GetComponent ("PlayerNetworkTestScript"));
+			NetworkView theNetworkView = myTransform.GetComponent<NetworkView>();
+			theNetworkView.RPC ("SetPlayer", RPCMode.AllBuffered, player);
+		}
 	}
 }

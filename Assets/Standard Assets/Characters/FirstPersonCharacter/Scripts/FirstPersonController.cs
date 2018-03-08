@@ -102,6 +102,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public void FixedUpdate()
         {
+			if (Input.GetKeyDown (KeyCode.Q)) 
+			{
+				//Debug.Log ("Changing position");
+				//m_MoveDir = new Vector3 (10.0f, 0.0f, 0.0f);
+			}
 			//Simulate ();	
         }
 

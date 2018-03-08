@@ -55,14 +55,12 @@ public class PlayerNetworkTestScript : MonoBehaviour {
 			float VInput = controller.vertical;
 
 			controller.Simulate ();
-			// Simulate works here
 
 			if (lastClientHInput != HInput || lastClientVInput != VInput) 
 			{
 				lastClientHInput = HInput;
 				lastClientVInput = VInput;
 
-				// Simulate doesnt work here 
 
 				if (Network.isServer) 
 				{
@@ -76,10 +74,8 @@ public class PlayerNetworkTestScript : MonoBehaviour {
 
 			if (Network.isServer) 
 			{
-				Debug.Log ("APPLY TRANSFORM");
+				Debug.Log ("Correct player state");
 				moveDir = new Vector3 (serverCurrentHInput, 0, serverCurrentVInput);
-				float speed = 5;
-				transform.Translate (speed * moveDir * Time.deltaTime);
 				//Debug.Log (moveDir);
 				//controller.desiredMove = moveDir;
 				//Debug.Log (controller.m_MoveDir);
