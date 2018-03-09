@@ -17,14 +17,19 @@ public class EnemyHealthScript : MonoBehaviour {
 	public AudioClip gunHitEnemySound;
 	public AudioSource audioSource;
 
-
 	//public GameObject camera;
+
+	void Awake()
+	{
+		maxHealth = 100;
+		currentHealth = maxHealth;
+	}
 
 	// Use this for initialization
 	void Start () 
 	{
-		maxHealth = 100;
-		currentHealth = maxHealth;
+		//maxHealth = 100;
+		//currentHealth = maxHealth;
 		audioSource = GetComponent<AudioSource> ();
 		
 	}
@@ -38,7 +43,7 @@ public class EnemyHealthScript : MonoBehaviour {
 		CheckHealth ();
 		UpdateHealth ();
 
-		transform.LookAt (playerCamera.transform);
+		//transform.LookAt (playerCamera.transform);
 	}
 
 	public void UpdateHealth()
@@ -64,22 +69,26 @@ public class EnemyHealthScript : MonoBehaviour {
 
 	public void DamageRPCCall()
 	{
-		audioSource.PlayOneShot (gunHitEnemySound, 0.2f);
-		GetComponent<NetworkView> ().RPC ("TakeDamage", RPCMode.All);
-
+		if (!Network.isServer)
+		{
+			return;
+		}
+		audioSource.PlayOneShot (gunHitEnemySound, 0.1f);
+		currentHealth -= 10;
+		GetComponent<NetworkView> ().RPC ("TakeDamage", RPCMode.All, currentHealth);
 	}
 
 	[RPC]
-	public void TakeDamage()
+	void TakeDamage(int serverHealth)
 	{
-		currentHealth -= 10;
+		currentHealth = serverHealth;
 	}
 
 	public void CheckHealth()
 	{
 		if (currentHealth <= 0) 
 		{
-			Destroy (this.transform.parent.gameObject);
+			Network.Destroy (this.transform.parent.gameObject);
 		}
 	}
 

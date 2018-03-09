@@ -61,7 +61,6 @@ public class PlayerNetworkTestScript : MonoBehaviour {
 				lastClientHInput = HInput;
 				lastClientVInput = VInput;
 
-
 				if (Network.isServer) 
 				{
 					SendMovementInput (HInput, VInput);
@@ -71,15 +70,15 @@ public class PlayerNetworkTestScript : MonoBehaviour {
 					GetComponent<NetworkView> ().RPC ("SendMovementInput", RPCMode.Server, HInput, VInput);
 				}
 			}
-
-			if (Network.isServer) 
-			{
-				Debug.Log ("Correct player state");
-				moveDir = new Vector3 (serverCurrentHInput, 0, serverCurrentVInput);
-				//Debug.Log (moveDir);
-				//controller.desiredMove = moveDir;
-				//Debug.Log (controller.m_MoveDir);
-			}
+		}
+			
+		if (Network.isServer) 
+		{
+			Debug.Log ("Correct player state");
+			moveDir = new Vector3 (serverCurrentHInput, 0, serverCurrentVInput);
+			controller.desiredMove = moveDir;
+			//transform.Translate(5 * moveDir * Time.deltaTime);
+			Debug.Log (moveDir);
 		}
 	}
 

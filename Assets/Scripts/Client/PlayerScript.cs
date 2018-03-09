@@ -34,6 +34,9 @@ public class PlayerScript : MonoBehaviour {
 
 	public Camera playerCanmera;
 
+	public float hitX;
+	public float hitY;
+
 	void Awake()
 	{
 		currentAmmo = gunCapacity;	
@@ -122,7 +125,8 @@ public class PlayerScript : MonoBehaviour {
 			return;
 		}
 		isShooting = false;
-		GetComponent<NetworkView>().RPC("UpdateAmmo", RPCMode.All);
+		currentAmmo--;
+		GetComponent<NetworkView>().RPC("SetAmmo", RPCMode.Others, currentAmmo);
 		RaycastHit hit = new RaycastHit ();
 		if (Physics.Raycast (playerCanmera.transform.position, playerCanmera.transform.forward, out hit))
 		{
@@ -138,9 +142,9 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	[RPC]
-	void UpdateAmmo()
+	void SetAmmo(int serverCurrentAmmo)
 	{
-		currentAmmo--;
+		currentAmmo = serverCurrentAmmo;
 	}
 
 	[RPC]
@@ -155,31 +159,24 @@ public class PlayerScript : MonoBehaviour {
 
 		if (reserveAmmo > bulletRefill) 
 		{
-			GetComponent<NetworkView> ().RPC ("UpdateAmmo1", RPCMode.All, bulletRefill);
-			//currentAmmo = gunCapacity;
-			//reserveAmmo -= bulletRefill;
+			currentAmmo = gunCapacity;
+			reserveAmmo -= bulletRefill;
+			GetComponent<NetworkView> ().RPC ("UpdateAmmo", RPCMode.Others, currentAmmo, reserveAmmo);
 		} 
 		else 
 		{
-			GetComponent<NetworkView> ().RPC ("UpdateAmmo2", RPCMode.All);
-			//currentAmmo += reserveAmmo;
-			//reserveAmmo = 0;
+			currentAmmo += reserveAmmo;
+			reserveAmmo = 0;
+			GetComponent<NetworkView> ().RPC ("UpdateAmmo", RPCMode.Others, currentAmmo, reserveAmmo);
 		}
 
 	}
 
 	[RPC]
-	void UpdateAmmo1(int bRefil)
+	void UpdateAmmo(int serverCurrentAmmo, int serverCurrentReserveAmmo)
 	{
-		currentAmmo = gunCapacity;
-		reserveAmmo -= bRefil;
-	}
-
-	[RPC]
-	void UpdateAmmo2()
-	{
-		currentAmmo += reserveAmmo;
-		reserveAmmo = 0;
+		currentAmmo = serverCurrentAmmo;
+		reserveAmmo = serverCurrentReserveAmmo;
 	}
 
 }

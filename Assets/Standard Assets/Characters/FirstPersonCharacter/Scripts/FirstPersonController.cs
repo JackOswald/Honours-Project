@@ -107,6 +107,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				//Debug.Log ("Changing position");
 				//m_MoveDir = new Vector3 (10.0f, 0.0f, 0.0f);
 			}
+
 			//Simulate ();	
         }
 

@@ -1,0 +1,5 @@
+http://www.palladiumgames.net/tutorials/unity-networking-tutorial/
+http://kartolo.sby.datautama.net.id/PacktPub/[PDF]_Unity_Multiplayer_Games.pdf
+https://www.codeproject.com/Articles/989447/UNITY-D-NETWORK-GAME-PROGRAMMING
+https://docs.unity3d.com/Manual/net-HighLevelOverview.html
+http://ad-bits.blogspot.co.uk/2014/10/server-reconciliation-in-unity3d.html

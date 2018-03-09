@@ -27,10 +27,10 @@ public class NetworkManagerScript : MonoBehaviour {
 		{
 			networkText.GetComponent<Text> ().text = "Server";
 			serverCamera.SetActive (true);
-			for (int i = 0; i < 7; i++) 
+			for (int i = 0; i < 2; i++) 
 			{
-				float xPos = UnityEngine.Random.Range (0.0f, 100.0f);
-				float zPos = UnityEngine.Random.Range (-10.0f, 50.0f);
+				float xPos = UnityEngine.Random.Range (10.0f, 100.0f);
+				float zPos = UnityEngine.Random.Range (-40.0f, -10.0f);
 				Network.Instantiate (enemyPrefab, new Vector3 (xPos, 0.5f, zPos), Quaternion.identity, 0);  //new Vector3 (10.0f, 0.5f, -20.0f)
 			}
 		}

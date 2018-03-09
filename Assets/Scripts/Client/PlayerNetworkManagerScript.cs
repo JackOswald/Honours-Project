@@ -140,13 +140,11 @@ public class PlayerNetworkManagerScript : MonoBehaviour {
 
 		if (stream.isWriting) 
 		{
-			Debug.Log ("Writing");
 			position = transform.position;
 			stream.Serialize (ref position);
 		} 
 		else 
 		{
-			Debug.Log ("Else");
 			stream.Serialize (ref position);
 			transform.position = position;
 		}
