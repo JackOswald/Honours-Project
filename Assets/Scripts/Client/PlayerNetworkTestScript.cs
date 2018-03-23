@@ -74,11 +74,11 @@ public class PlayerNetworkTestScript : MonoBehaviour {
 			
 		if (Network.isServer) 
 		{
-			Debug.Log ("Correct player state");
+			//Debug.Log ("Correct player state");
 			moveDir = new Vector3 (serverCurrentHInput, 0, serverCurrentVInput);
 			controller.desiredMove = moveDir;
 			//transform.Translate(5 * moveDir * Time.deltaTime);
-			Debug.Log (moveDir);
+			//Debug.Log (moveDir);
 		}
 	}
 

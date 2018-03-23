@@ -3,3 +3,15 @@ http://kartolo.sby.datautama.net.id/PacktPub/[PDF]_Unity_Multiplayer_Games.pdf
 https://www.codeproject.com/Articles/989447/UNITY-D-NETWORK-GAME-PROGRAMMING
 https://docs.unity3d.com/Manual/net-HighLevelOverview.html
 http://ad-bits.blogspot.co.uk/2014/10/server-reconciliation-in-unity3d.html
+https://forum.unity.com/threads/unet-multiplayer-interpolation-and-latency-compensation.398102/#post-2605088
+https://forum.unity.com/threads/dead-reckoning-for-racing-games-what-are-some-good-ideas.119907/
+http://dl.ifip.org/db/conf/euc/euc2006/KimK06.pdf
+https://folk.uio.no/paalh/publications/files/nossdav2006-palant.pdf
+https://www.hindawi.com/journals/ijcgt/2014/138596/
+https://www.gamasutra.com/view/feature/131638/dead_reckoning_latency_hiding_for_.php
+
+
+
+
+
+

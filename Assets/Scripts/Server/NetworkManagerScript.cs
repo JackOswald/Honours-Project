@@ -39,6 +39,7 @@ public class NetworkManagerScript : MonoBehaviour {
 	void OnConnectedToServer()
 	{
 		//Network.Instantiate (playerPrefab, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity, 0);
+		//GetComponent<NetworkView>().RPC("SpawnPlayer", RPCMode.Others, Network.player, true);
 		SpawnPlayer(Network.player, true);
 	}
 
@@ -52,7 +53,7 @@ public class NetworkManagerScript : MonoBehaviour {
 	{
 		
 	}
-
+				
 	void SpawnPlayer(NetworkPlayer player, bool isPlayer)
 	{
 		string tempPlayerString = player.ToString ();

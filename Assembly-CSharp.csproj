@@ -78,6 +78,7 @@
      <Compile Include="Assets\External Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
      <Compile Include="Assets\External Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\External Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+     <Compile Include="Assets\Scripts\Client\PlayerLatencyCorrectionScript.cs" />
      <Compile Include="Assets\Scripts\Client\PlayerNetworkManagerScript.cs" />
      <Compile Include="Assets\Scripts\Client\PlayerNetworkTestScript.cs" />
      <Compile Include="Assets\Scripts\Client\PlayerScript.cs" />
