@@ -78,13 +78,14 @@
      <Compile Include="Assets\External Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
      <Compile Include="Assets\External Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\External Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
-     <Compile Include="Assets\Scripts\Client\PlayerLatencyCorrectionScript.cs" />
      <Compile Include="Assets\Scripts\Client\PlayerNetworkManagerScript.cs" />
-     <Compile Include="Assets\Scripts\Client\PlayerNetworkTestScript.cs" />
+     <Compile Include="Assets\Scripts\Client\PlayerNetworkOLD.cs" />
      <Compile Include="Assets\Scripts\Client\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\CubeTestScript.cs" />
      <Compile Include="Assets\Scripts\EnemyHealthScript.cs" />
-     <Compile Include="Assets\Scripts\NavMeshAgentScript.cs" />
+     <Compile Include="Assets\Scripts\NavMeshAgentLevel1Script.cs" />
+     <Compile Include="Assets\Scripts\NavMeshAgentLevel2Script.cs" />
+     <Compile Include="Assets\Scripts\NavMeshAgentLevel3Script.cs" />
      <Compile Include="Assets\Scripts\Server\NetworkLevelLoader.cs" />
      <Compile Include="Assets\Scripts\Server\NetworkManagerScript.cs" />
      <Compile Include="Assets\Scripts\Server\ServerUtilityScript.cs" />

@@ -100,7 +100,7 @@ public class PlayerScript : MonoBehaviour {
 
 	void Fire()
 	{
-		Debug.Log ("Client fire");
+		//Debug.Log ("Client fire");
 
 		GetComponent<NetworkView> ().RPC ("ServerFire", RPCMode.Server);
 

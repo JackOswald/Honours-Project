@@ -9,27 +9,22 @@ public class PlayerNetworkManagerScript : MonoBehaviour {
 	public PlayerScript playerScript;
 	public UnityStandardAssets.Characters.FirstPerson.FirstPersonController controller;
 
-	public float dist;
+	public NetworkPlayer theOwner;
+	public float lastClientHInput = 0f;
+	public float lastClientVInput = 0f;
+	public float serverCurrentHInput = 0f;
+	public float serverCurrentVInput = 0f;
+	//public float HInput;
+	//public float VInput;
+	public Vector3 moveDir = Vector3.zero; 
 
-	// Move commands sent to the server
-	public struct move
+	void Awake()
 	{
-		public float HorizontalAxis;
-		public float VerticalAxis;
-		public double TimeStamp;
-
-		public move (float horiz, float vert, double timestamp)
-		{
-			this.HorizontalAxis = horiz;
-			this.VerticalAxis = vert;
-			this.TimeStamp = timestamp;
-		}
+		//if (Network.isClient)
+		//{
+		//	enabled = false;
+		//}
 	}
-		
-
-	// History of move commands sent from the client to the server
-	public List<move> moveHistory = new List<move>();
-
 
 	// Use this for initialization
 	void Start () 
@@ -48,105 +43,75 @@ public class PlayerNetworkManagerScript : MonoBehaviour {
 				t.gameObject.SetActive (true);
 			}
 		}
-			
+		
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate () 
 	{
-		
-	}
-
-	void FixedUpdate()
-	{
-		if (GetComponent<NetworkView> ().isMine)
-		{	
-			move moveState = new move (controller.horizontal, controller.vertical, Network.time);
-			moveHistory.Insert (0, moveState);
-			if (moveHistory.Count > 50) 
-			{
-				moveHistory.RemoveAt (moveHistory.Count - 1);
-			}
+		if (theOwner != null && Network.player == theOwner) 
+		{
+			float HInput = controller.horizontal;
+			float VInput = controller.vertical;
 
 			controller.Simulate ();
-			 
-			// Send current state to the server
-			GetComponent<NetworkView> ().RPC ("ProcessInput", 
-				RPCMode.Server, 
-				moveState.HorizontalAxis, 
-				moveState.VerticalAxis, 
-				this.transform.position);
+
+			if (lastClientHInput != HInput || lastClientVInput != VInput) 
+			{
+				lastClientHInput = HInput;
+				lastClientVInput = VInput;
+
+				if (Network.isServer) 
+				{
+					SendMovementInput (HInput, VInput);
+				} 
+				else if (!Network.isServer)
+				{
+					GetComponent<NetworkView> ().RPC ("SendMovementInput", RPCMode.Server, HInput, VInput);
+				}
+			}
 		}
-
-		dist = Vector3.Distance (controller.currentPos, this.transform.position);
-	}
-
-	[RPC]
-	void ProcessInput(float horizAxis, float vertAxis, Vector3 position, NetworkMessageInfo info)
-	{
-		if (GetComponent<NetworkView>().isMine)
+			
+		if (Network.isServer) 
 		{
-			return;
-		}
-
-		if (!Network.isServer)
-		{
-			return;
-		}
-
-		Debug.Log ("Process Inputs");
-		controller.horizontal = horizAxis;
-		controller.vertical = vertAxis;
-		controller.Simulate();
-
-		// Compare position results
-		if (Vector3.Distance (controller.currentPos, position) > 0.001f)  // > 0.1f
-		{
-			GetComponent<NetworkView> ().RPC ("CorrectState", info.sender, transform.position);
+			//Debug.Log ("Correct player state");
+			moveDir = new Vector3 (serverCurrentHInput, 0, serverCurrentVInput);
+			controller.desiredMove = moveDir;
+			//transform.Translate(5 * moveDir * Time.deltaTime);
+			//Debug.Log (moveDir);
 		}
 	}
 
 	[RPC]
-	void CorrectState(Vector3 correctPos, NetworkMessageInfo info)
+	void SetPlayer(NetworkPlayer player)
 	{
-		Debug.Log ("Correct State");
-		int pastState = 0;
-
-		for (int i = 0; i < moveHistory.Count; i++)
+		theOwner = player;
+		if (player == Network.player) 
 		{
-			if (moveHistory [i].TimeStamp <= info.timestamp) 
-			{
-				pastState = i;
-				break;
-			}
+			enabled = true;
 		}
-
-		// Rewind state
-		this.transform.position = correctPos;
-
-		for (int i = pastState; i >= 0; i--) 
-		{
-			controller.horizontal = moveHistory [i].HorizontalAxis;
-			controller.vertical = moveHistory [i].VerticalAxis;
-			controller.Simulate ();
-		}
-
-		moveHistory.Clear ();
 	}
 
-	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
+	[RPC]
+	void SendMovementInput(float HorizInput, float VertInput)
 	{
-		Vector3 position = Vector3.zero;
+		serverCurrentHInput = HorizInput;
+		serverCurrentVInput = VertInput;
+	}
 
+	void OnSerializeNetworkView (BitStream stream, NetworkMessageInfo info)
+	{
 		if (stream.isWriting) 
 		{
-			position = transform.position;
-			stream.Serialize (ref position);
+			Vector3 pos = transform.position;
+			stream.Serialize (ref pos);
 		} 
 		else 
 		{
-			stream.Serialize (ref position);
-			transform.position = position;
+			Vector3 posRecieve = Vector3.zero;
+			stream.Serialize (ref posRecieve);
+			transform.position = posRecieve;
 		}
 	}
+
 }

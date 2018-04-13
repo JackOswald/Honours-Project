@@ -27,7 +27,7 @@ public class NetworkManagerScript : MonoBehaviour {
 		{
 			networkText.GetComponent<Text> ().text = "Server";
 			serverCamera.SetActive (true);
-			for (int i = 0; i < 2; i++) 
+			for (int i = 0; i < 8; i++) 
 			{
 				float xPos = UnityEngine.Random.Range (10.0f, 100.0f);
 				float zPos = UnityEngine.Random.Range (-40.0f, -10.0f);
@@ -41,6 +41,7 @@ public class NetworkManagerScript : MonoBehaviour {
 		//Network.Instantiate (playerPrefab, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity, 0);
 		//GetComponent<NetworkView>().RPC("SpawnPlayer", RPCMode.Others, Network.player, true);
 		SpawnPlayer(Network.player, true);
+		//SpawnPlayers();
 	}
 
 	void OnServerInitialized()
@@ -51,7 +52,7 @@ public class NetworkManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		
+
 	}
 				
 	void SpawnPlayer(NetworkPlayer player, bool isPlayer)
@@ -69,5 +70,13 @@ public class NetworkManagerScript : MonoBehaviour {
 			NetworkView theNetworkView = myTransform.GetComponent<NetworkView>();
 			theNetworkView.RPC ("SetPlayer", RPCMode.AllBuffered, player);
 		}
+	}
+
+	void SpawnPlayers()
+	{
+		Network.Instantiate (playerPrefab, 
+			new Vector3 (0.0f, 1.5f, 0.0f), 
+			Quaternion.identity, 
+		1);
 	}
 }
