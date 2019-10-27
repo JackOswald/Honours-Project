@@ -4,7 +4,7 @@ An application created in the Unity game engine using C# for the requirements of
 
 This project can be run by following the steps at: https://github.com/JackOswald/Honours-Project-Player-Test
 
-# What I learned
+# What I Learned
  
 * How to run a master server in Unity and allow other clients to view all active game sessions available to them
 * How to set up an authoritative server to control the overall state of the game world and perform all world simulations
