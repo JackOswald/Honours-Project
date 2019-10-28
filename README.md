@@ -2,6 +2,12 @@
 
 An application created in the Unity game engine using C# for the requirements of my final year Honours Project. The application consists of 3 levels to test the different levels of latency compensation. 
 
+Level 1: A base FPS game with no latency compensation.
+
+Level 2: Basic latency compensation 
+
+Level 3:
+
 This project can be run by following the steps at: https://github.com/JackOswald/Honours-Project-Player-Test
 
 # What I Learned
