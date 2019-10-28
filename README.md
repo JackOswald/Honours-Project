@@ -2,11 +2,11 @@
 
 An application created in the Unity game engine using C# for the requirements of my final year Honours Project. The application consists of 3 levels to test the different levels of latency compensation. 
 
-Level 1: A base FPS game with no latency compensation.
+Level 1: A base FPS game with no latency compensation and the raw latency between the server and client present
 
 Level 2: Basic latency compensation 
 
-Level 3:
+Level 3: Client side prediction
 
 This project can be run by following the steps at: https://github.com/JackOswald/Honours-Project-Player-Test
 
@@ -15,4 +15,5 @@ This project can be run by following the steps at: https://github.com/JackOswald
 * Run a master server in Unity and allow other clients to view all active game sessions available to them
 * Set up an authoritative server to control the overall state of the game world and perform all world simulations
 * Share data between clients and server 
-* Implement basic latency compensation and dead reckoning   
+* Implement basic latency compensation and dead reckoning  
+* & much more
