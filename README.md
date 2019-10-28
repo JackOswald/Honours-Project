@@ -6,7 +6,7 @@ This project can be run by following the steps at: https://github.com/JackOswald
 
 # What I Learned
  
-* How to run a master server in Unity and allow other clients to view all active game sessions available to them
-* How to set up an authoritative server to control the overall state of the game world and perform all world simulations
-* How to share data between clients and server 
-* How to implement basic latency compensation and dead reckoning   
+* Run a master server in Unity and allow other clients to view all active game sessions available to them
+* Set up an authoritative server to control the overall state of the game world and perform all world simulations
+* Share data between clients and server 
+* Implement basic latency compensation and dead reckoning   
